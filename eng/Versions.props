@@ -87,6 +87,7 @@
     <StyleCopAnalyzersVersion>1.2.0-beta.304</StyleCopAnalyzersVersion>
     <SystemBuffersVersion>4.5.1</SystemBuffersVersion>
     <SystemCollectionsVersion>4.3.0</SystemCollectionsVersion>
+    <SystemCommandLineVersion>2.0.0-beta3.22151.2</SystemCommandLineVersion>
     <SystemComponentModelAnnotationsVersion>5.0.0</SystemComponentModelAnnotationsVersion>
     <SystemDataSqlClientVersion>4.8.2</SystemDataSqlClientVersion>
     <SystemDataDataSetExtensionsVersion>4.5.0</SystemDataDataSetExtensionsVersion>
@@ -137,7 +138,6 @@
     <optimizationPGOCoreCLRVersion>1.0.0-prerelease.21507.4</optimizationPGOCoreCLRVersion>
     <!-- Not auto-updated. -->
     <MicrosoftDiaSymReaderNativeVersion>16.9.0-beta1.21055.5</MicrosoftDiaSymReaderNativeVersion>
-    <SystemCommandLineVersion>2.0.0-beta1.20253.1</SystemCommandLineVersion>
     <TraceEventVersion>2.0.65</TraceEventVersion>
     <CommandLineParserVersion>2.2.0</CommandLineParserVersion>
     <NETStandardLibraryRefVersion>2.1.0</NETStandardLibraryRefVersion>
