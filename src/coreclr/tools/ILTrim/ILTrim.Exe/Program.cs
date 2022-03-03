@@ -37,7 +37,7 @@ namespace ILTrim
             return args.Tokens.Select(ParseToken).ToArray();
         };
         private static readonly Option<KeyValuePair<string, bool>[]> features = new Option<KeyValuePair<string, bool>[]>("--feature", parseArgument: parseFeatures, description: "Feature switches");
-        private static readonly Argument<string> inputArg = new Argument<string>("input", "Assembly to trim");
+        private static readonly Argument<FileInfo> inputArg = new Argument<FileInfo>("input", "Assembly to trim").LegalFilePathsOnly().ExistingOnly();
 
         static void Main(string[] args)
         {
@@ -55,12 +55,13 @@ namespace ILTrim
                         v.ErrorMessage = "Log strategy reqires a log file path",
                     (LogStrategy.FirstMark, null) =>
                         v.ErrorMessage = "Log strategy reqires a log file path",
-                    (_, { } logFile) =>
+                    (LogStrategy.EventSource | LogStrategy.None, { } logFile) =>
                         v.ErrorMessage = "Specified log strategy can't use logFile option",
+                    _ => default
                 };
             });
             rootCommand.AddArgument(inputArg);
-            rootCommand.SetHandler((KeyValuePair<string, bool>[] featureSwitches, int? parallelism, LogStrategy logStrategy, string logFile, bool libraryMode, string input, string[] trimAssemblies, string outputPath, string[] references) => {
+            rootCommand.SetHandler((KeyValuePair<string, bool>[] featureSwitches, int? parallelism, LogStrategy logStrategy, string logFile, bool libraryMode, FileInfo input, string[] trimAssemblies, string outputPath, string[] references) => {
                 Dictionary<string, bool> featureSwitchesDictionary = new(featureSwitches ?? Array.Empty<KeyValuePair<string, bool>>());
                 var settings = new TrimmerSettings(
                     MaxDegreeOfParallelism: parallelism,
@@ -69,7 +70,7 @@ namespace ILTrim
                     LibraryMode: libraryMode,
                     FeatureSwitches: featureSwitchesDictionary);
                 Trimmer.TrimAssembly(
-                    input.Trim(),
+                    input.FullName,
                     trimAssemblies,
                     outputPath ?? Directory.GetCurrentDirectory(),
                     references,
